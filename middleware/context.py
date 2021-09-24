@@ -11,21 +11,24 @@ def get_db_info():
     :return: A dictionary with connect info for MySQL
     """
     db_host = os.environ.get("DBHOST", None)
-    db_user = os.environ.get("DBUSER", None)
-    db_password = os.environ.get("DBPASSWORD", None)
 
-    if db_host is not None:
-        db_info = {
-            "host": db_host,
-            "user": db_user,
-            "password": db_password,
-            "cursorclass": pymysql.cursors.DictCursor
-        }
-    else:
+    if db_host is None:
+
         db_info = {
             "host": "projdb6156.czcf5gwsffzy.us-east-1.rds.amazonaws.com",
             "user": "root",
             "password": "12345678",
+            "port": 3306,
+            "db": "testdb",
+            "cursorclass": pymysql.cursors.DictCursor
+        }
+
+    else:
+
+        db_info = {
+            "host": db_host,
+            "user": os.environ.get("DBUSER"),
+            "password": os.environ.get("DBPASSWORD"),
             "cursorclass": pymysql.cursors.DictCursor
         }
 
